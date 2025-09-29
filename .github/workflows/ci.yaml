@@ -1,6 +1,10 @@
 
 name: CI Pipeline
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   push:
     branches: [ "main" ]
@@ -59,7 +63,7 @@ jobs:
           context: ./UI
           file: ./UI/Dockerfile
           push: true
-          tags: ghcr.io/esraagaber/weatherapp-ui:latest
+          tags: ghcr.io/esraagaber/esraagaber/devops_weatherapp/weatherapp-ui:latest
 
       - name: Build and push Auth image
         uses: docker/build-push-action@v5
@@ -67,7 +71,7 @@ jobs:
           context: ./auth
           file: ./auth/Dockerfile
           push: true
-          tags: ghcr.io/esraagaber/weatherapp-auth:latest
+          tags: ghcr.io/esraagaber/esraagaber/devops_weatherapp/weatherapp-auth:latest
 
       - name: Build and push Weather image
         uses: docker/build-push-action@v5
@@ -75,4 +79,4 @@ jobs:
           context: ./weather
           file: ./weather/Dockerfile
           push: true
-          tags: ghcr.io/esraagaber/weatherapp-weather:latest
+          tags: ghcr.io/esraagaber/esraagaber/devops_weatherapp/weatherapp-weather:latest
