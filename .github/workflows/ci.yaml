@@ -56,12 +56,26 @@ jobs:
           username: ${{ github.repository_owner}}
           password: ${{ secrets.GITHUB_TOKEN}}
 
-      - name: Build and push Docker Image
+      - name: Build and push UI image
         uses: docker/build-push-action@v5
-        with: 
-          context: .
-          push : true
-          tags: |
-            ghcr.io/${{ env.owner }}/weatherapp-ui:latest
-            ghcr.io/${{ env.owner }}/weatherapp-auth:latest
-            ghcr.io/${{ env.owner }}/weatherapp-weather:latest
+        with:
+          context: ./UI
+          file: ./UI/Dockerfile
+          push: true
+          tags: ghcr.io/${{ env.owner }}/weatherapp-ui:latest
+
+      - name: Build and push Auth image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./auth
+          file: ./auth/Dockerfile
+          push: true
+          tags: ghcr.io/${{ env.owner }}/weatherapp-auth:latest
+
+      - name: Build and push Weather image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./weather
+          file: ./weather/Dockerfile
+          push: true
+          tags: ghcr.io/${{ env.owner }}/weatherapp-weather:latest
