@@ -62,7 +62,7 @@ jobs:
           context: ./UI
           file: ./UI/Dockerfile
           push: true
-          tags: ghcr.io/${{ env.owner }}/weatherapp-ui:latest
+          tags: ghcr.io/${{ env.owner }}/devops_weatherapp/weatherapp-ui:latest
 
       - name: Build and push Auth image
         uses: docker/build-push-action@v5
@@ -70,7 +70,7 @@ jobs:
           context: ./auth
           file: ./auth/Dockerfile
           push: true
-          tags: ghcr.io/${{ env.owner }}/weatherapp-auth:latest
+          tags: ghcr.io/${{ env.owner }}/devops_weatherapp/weatherapp-auth:latest
 
       - name: Build and push Weather image
         uses: docker/build-push-action@v5
@@ -78,4 +78,4 @@ jobs:
           context: ./weather
           file: ./weather/Dockerfile
           push: true
-          tags: ghcr.io/${{ env.owner }}/weatherapp-weather:latest
+          tags: ghcr.io/${{ env.owner }}/devops_weatherapp/weatherapp-weather:latest
