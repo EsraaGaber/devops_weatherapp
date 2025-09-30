@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weatherapp-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weatherapp-backend
+  template:
+    metadata:
+      labels:
+        app: weatherapp-backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/esraagaber/esraagaber/devops_weatherapp/weatherapp-weather:latest
+          env:
+            - name: DB_HOST
+              value: "terraform-20250930092321410100000001.cryek8qkag01.eu-central-1.rds.amazonaws.com"  # From Terraform output
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: password
+            - name: DB_NAME
+              value: weatherapp
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: weatherapp-backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP

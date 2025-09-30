@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weatherapp-auth
+  labels:
+    app: weatherapp-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weatherapp-auth
+  template:
+    metadata:
+      labels:
+        app: weatherapp-auth
+    spec:
+      containers:
+        - name: auth
+          image: ghcr.io/esraagaber/esraagaber/devops_weatherapp/weatherapp-auth:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: "terraform-20250930092321410100000001.cryek8qkag01.eu-central-1.rds.amazonaws.com"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "adminesraa"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rds-secret
+                  key: password
+            - name: DB_NAME
+              value: "adminesraa"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weatherapp-auth
+spec:
+  type: ClusterIP
+  selector:
+    app: weatherapp-auth
+  ports:
+    - port: 8080
+      targetPort: 8080
