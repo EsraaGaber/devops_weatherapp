@@ -35,7 +35,7 @@ func main() {
 		dbPort = "5432" // default PostgreSQL port
 	}
 
-	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName,dbPort)
+	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName)
 	authdb.CreateTables(db)
 
 	router := gin.Default()
@@ -57,7 +57,7 @@ type UserCreds struct {
 }
 
 func health(c *gin.Context) {
-	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName, dbPort)
+	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName)
 	if db == nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not connect to the database"})
 	} else {
@@ -74,8 +74,8 @@ func loginUser(c *gin.Context) {
 	}
 	encPasswordb := md5.Sum([]byte(uc.Password))
 	encPassword := hex.EncodeToString(encPasswordb[:])
-	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName, dbPort)
-	u, err := authdb.GetUserByName(uc.Username, db)
+	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName)
+	u, err := authdb.GetUserByName(db,uc.Username)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Database error"})
 		return
@@ -95,7 +95,7 @@ func loginUser(c *gin.Context) {
 func createUser(c *gin.Context) {
 	var u authdb.User
 	c.BindJSON(&u)
-	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName, dbPort)
+	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName)
 	result, err := authdb.CreateUser(db, u)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error while adding the user"})
