@@ -35,7 +35,7 @@ func main() {
 		dbPort = "5432" // default PostgreSQL port
 	}
 
-	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName)
+	db := authdb.Connect(dbUser, dbPassword, dbHost, dbName,dbPort)
 	authdb.CreateTables(db)
 
 	router := gin.Default()
