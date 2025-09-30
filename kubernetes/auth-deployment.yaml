@@ -32,7 +32,7 @@ spec:
                   name: rds-secret
                   key: password
             - name: DB_NAME
-              value: "adminesraa"
+              value: "weatherapp"
 ---
 apiVersion: v1
 kind: Service
