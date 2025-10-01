@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   auth:
@@ -11,10 +9,11 @@ services:
       DB_HOST: terraform-20250930092321410100000001.cryek8qkag01.eu-central-1.rds.amazonaws.com
       DB_PORT: 5432
       DB_USER: adminesraa
-      DB_PASSWORD: MySecretPassword
+      DB_PASSWORD: MySecurePassword
       DB_NAME: weatherapp
+      DB_SSLMODE: require
     ports:
-      - "8080:8080"   # expose for local testing
+      - "8081:8080"   # expose for local testing
     networks:
       - app-net
 

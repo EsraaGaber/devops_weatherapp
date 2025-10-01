@@ -17,11 +17,16 @@ type User struct {
 
 // Connect to PostgreSQL database
 func Connect(dbUser, dbPassword, dbHost, dbName string) *sql.DB {
-	fmt.Printf("Connecting to DB at host=%s user=%s db=%s\n", dbHost, dbUser, dbName)
 	connStr := fmt.Sprintf(
 		"host=%s port=5432 user=%s password=%s dbname=%s sslmode=disable",
 		dbHost, dbUser, dbPassword, dbName,
 	)
+
+    fmt.Println("🔌 Connecting to Postgres with:")
+    fmt.Println("  Host:", dbHost)
+    fmt.Println("  User:", dbUser)
+    fmt.Println("  DB:", dbName)
+	
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		fmt.Println("Error connecting to DB:", err)
