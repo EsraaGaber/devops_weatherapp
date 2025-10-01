@@ -6,15 +6,15 @@ services:
     restart: always
     build: ./auth
     depends_on:
-      - db
+      - weather
     environment:
-      DB_HOST: db                 # Use 'db' to connect to the local PostgreSQL container
-      DB_PORT: 5432               # default PostgreSQL port
+      DB_HOST: terraform-20250930092321410100000001.cryek8qkag01.eu-central-1.rds.amazonaws.com
+      DB_PORT: 5432
       DB_USER: adminesraa
       DB_PASSWORD: MySecretPassword
       DB_NAME: weatherapp
     ports:
-      - "8080:8080"               # expose for local testing
+      - "8080:8080"   # expose for local testing
     networks:
       - app-net
 
@@ -42,21 +42,6 @@ services:
     networks:
       - app-net
 
-  db:
-    restart: always
-    image: postgres:15
-    environment:
-      POSTGRES_USER: adminesraa
-      POSTGRES_PASSWORD: MySecretPassword
-      POSTGRES_DB: weatherapp
-    networks:
-      - app-net
-    volumes:
-      - ./db-data:/var/lib/postgresql/data
-
 networks:
   app-net:
     driver: bridge
-
-volumes:
-  db-data:
