@@ -37,7 +37,7 @@ services:
     restart: always
     build: ./weather
     environment:
-      APIKEY: 9a0a3c4d89msh1f5d7dc02c0c2c4p141bd5jsn15bae6ea5ff7
+      APIKEY: 6d92c50bdamsh81137f3b87ace1fp1d53eejsnfe818b9dbc83
     networks:
       - app-net
 
