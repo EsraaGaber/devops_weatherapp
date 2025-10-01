@@ -18,7 +18,7 @@ type User struct {
 // Connect to PostgreSQL database
 func Connect(dbUser, dbPassword, dbHost, dbName string) *sql.DB {
 	connStr := fmt.Sprintf(
-		"host=%s port=5432 user=%s password=%s dbname=%s sslmode=disable",
+		"host=%s port=5432 user=%s password=%s dbname=%s sslmode=require",
 		dbHost, dbUser, dbPassword, dbName,
 	)
 
