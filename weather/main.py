@@ -16,7 +16,7 @@ def hello(city):
     querystring = {"q":city}
     headers = {
         'x-rapidapi-host': "weatherapi-com.p.rapidapi.com",
-        'x-rapidapi-key': os.getenv("APIKEY")
+        'x-rapidapi-key': "6d92c50bdamsh81137f3b87ace1fp1d53eejsnfe818b9dbc83"
     }
     response = requests.request("GET", url, headers=headers, params=querystring)
     return jsonify(response.text)
